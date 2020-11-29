@@ -75,6 +75,38 @@ def scrape():
     mars_facts_df = mars_facts_table[0]
     mars_facts_df = mars_facts_df.rename(columns={0:"Mars Profile", 1 : " "})
 
+    #section on hemispheres
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+    #           <img src= {{hemisphere_image_url1.src}}/>
+    #           <img src= {{hemisphere_image_url2.src}}/>
+    #           <img src= {{hemisphere_image_url3.src}}/>
+    #           <img src= {{hemisphere_image_url4.src}}/>
+                <hemisphere_img_src= {{hemisphere_image_urls.src}}/>
+            <h3>Hemispheres</h3>
+            <p>{{ hemisphere_img_url.report}}</p>
+          </div>
+      </div>
+
+    hemisphere_image_urls = [
+    {"title": "Cerberus Hemisphere Enhanced", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/cerberus_enhanced.tif/full.jpg"},
+    {"title": "Schiaparelli Hemisphere Enhanced", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/schiaparelli_enhanced.tif/full.jpg"},
+    {"title": "Syrtis Major Hemisphere Enhanced", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/syrtis_major_enhanced.tif/full.jpg"},
+    {"title": "Valles Marineris Hemisphere Enhanced", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/valles_marineris_enhanced.tif/full.jpg"},
+]
+
+    for url in hemisphere_image_urls:
+        browser.visit(url)
+        html = browser.html
+        soup = BeautifulSoup(html, 'html.parser')
+        url = soup.find('li')
+        img_url = url.find('a')['href']
+
+        hemispheres_img_src = soup.find(class_ = 'img_id').text
+        img_images.append({"title": title, "img_url": img_url})
+
     mars_dict = {
         "mars_headline_report" : mars_headline_report,
         "mars_para_report" : mars_para_report,
@@ -88,5 +120,6 @@ def scrape():
     return featured_img_src
     return mars_data
     return mars_dict
+    return hemispheres_img_src
     
 
