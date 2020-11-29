@@ -117,9 +117,10 @@ def scrape():
 
     browser.quit()
 
-    return featured_img_src
     return mars_data
-    return mars_dict
-    return hemispheres_img_src
+
+    # return featured_img_src
+    # return mars_dict
+    # return hemispheres_img_src
     
 
