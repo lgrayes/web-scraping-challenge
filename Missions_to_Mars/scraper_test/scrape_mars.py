@@ -1,3 +1,8 @@
+import requests
+import pandas as pd
+import pymongo
+import os
+import time
 from bs4 import BeautifulSoup
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
@@ -30,9 +35,15 @@ def scrape():
     # create soup object from html
     html = browser.html
     report = BeautifulSoup(html, "html.parser")
-    mars_report = report.find_all("p")
+
+    time.sleep(1)
+
+    mars_headline_report = soup.find('div', class_="image_and_description_container").find('div', class_='content_title').text
+    mars_para_report = soup.find('div', class_="image_and_description_container").find('div', class_='content_title').text
+    #report.find_all("p")
+
     # add it to our mars data dict
-    mars_data["report"] = build_report(mars_report)
+    mars_headline["report"] = build_report(mars_report)
 
     # return our mars data dict
 
@@ -64,8 +75,8 @@ def scrape():
     mars_facts_df = mars_facts_df.rename(columns={0:"Mars Profile", 1 : " "})
 
     mars_dict = {
-        "latest_news_headline" : latest_news_headline,
-        "latest_news_paragraph" : latest_news_paragraph,
+        "mars_headline_report" : mars_headline_report,
+        "mars_para_report" : mars_para_report,
         "featured_img_src" : featured_img_src,
         "mars_facts_df" : mars_facts_df,
         "hemispheres_img_src" : hemispheres_img_src
