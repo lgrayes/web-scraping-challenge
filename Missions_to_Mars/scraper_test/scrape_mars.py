@@ -3,13 +3,14 @@ import pandas as pd
 import pymongo
 import os
 import time
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as init_browser
+import splinter
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 
 
 def init_browser():
-    !which chromedriver
+    # !which chromedriver
 
     executable_path = {"executable_path": ChromeDriverManager().install()}
     # executable_path = {'executable_path': '/Applications/chromedriver'}
